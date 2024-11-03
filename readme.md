@@ -60,6 +60,9 @@ npm run build
 5. Create a `.env` file in the app directory with the following variables:
 ```
 SECRET_KEY=your-secret-key
+MAIL_SERVER=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USE_TLS=True
 MAIL_USERNAME=your-email@gmail.com
 MAIL_PASSWORD=your-email-password
 MAIL_DEFAULT_SENDER=your-email@gmail.com
@@ -70,6 +73,8 @@ DATABASE_URL=sqlite:///app.db  # For development
 
 1. Initialize the database:
 ```
+flask db init
+flask db migrate
 flask db upgrade
 ```
 
@@ -137,7 +142,15 @@ The application implements several security measures:
 
 ## License
 
-[Add your license information here]
+This project is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0). This means you are free to:
+
+- Share — copy and redistribute the material in any medium or format
+- Adapt — remix, transform, and build upon the material for any purpose, even commercially
+
+Under the following terms:
+- Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made.
+
+For more details, see https://creativecommons.org/licenses/by/4.0/
 
 ## Contact
 
