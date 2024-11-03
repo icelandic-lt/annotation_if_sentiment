@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Ummælagreining{% endblock %}
+
+{% block content %}
+<div class="hero min-h-96 bg-base-100">
+  <div class="hero-content text-center">
+    <div class="max-w-lg">
+      <h1 class="text-3xl font-bold mb-6 sm:text-4xl">Ummælagreining</h1>
+      <p class="text-lg mb-4"">Hjálpaðu okkur að bæta íslenska gervigreind</p>
+      <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+        <a href="{{ url_for('login') }}" class="btn btn-primary">Skráðu þig inn</a>
+        <a href="{{ url_for('register') }}" class="btn btn-secondary">Nýskráning</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mx-auto px-4 py-16">
+  <h2 class="text-3xl font-bold mb-8 text-center">Um verkefnið</h2>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h3 class="card-title text-2xl mb-4">Hvað er Ummælagreining?</h3>
+        <p>Ummælagreining er samstarfsverkefni Háskóla Íslands, Háskólans í Reykjavík og Miðeindar. Markmið okkar er að búa til gagnasafn sem endurspeglar íslenskt gildismat og menningu, til dæmis á því hvað telst óviðeigandi eða særandi orðræða. Til að ná markmiðinu þurfa þátttakendur að greina ummæli af netinu í yfir 20 mismunandi verkefnum.</p>
+      </div>
+    </div>
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h3 class="card-title text-2xl mb-4">Af hverju er þetta mikilvægt?</h3>
+        <p>Með því að taka þátt hjálpar þú okkur að þróa gervigreind sem skilur og virðir íslenska menningu og gildi. Þetta er mikilvægt skref í að varðveita og efla íslenska tungu í stafrænum heimi. Til dæmis gætu fyrirtæki sem þróa gervigreind fyrir íslensku mælt málskilning þeirra í þeim verkefnum sem við söfnum gögnum fyrir í verkefninu. Slíkt gæti verið mikilvægt til að meta hvort gervigreindin hafi nægjanlegan góðan málskilning þegar henni er beitt í mismunandi aðstæðum.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="text-3xl font-bold mb-8 text-center">Hvernig virkar þetta?</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body items-center text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mb-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        </svg>
+        <h3 class="card-title text-xl mb-2">1. Skráðu þig</h3>
+        <p>Búðu til ókeypis aðgang til að taka þátt í verkefninu.</p>
+      </div>
+    </div>
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body items-center text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mb-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+        </svg>
+        <h3 class="card-title text-xl mb-2">2. Merktu ummæli</h3>
+        <p>Lestu og merktu ummæli af íslenskum bloggsíðum. Athugaðu að sum ummæli gætu innihaldið dónalegt, óviðeigandi eða gróft orðbragð og því er þetta verkefni ekki við hæfi fyrir börn.</p>
+      </div>
+    </div>
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body items-center text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mb-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+        </svg>
+        <h3 class="card-title text-xl mb-2">3. Bættu gervigreind</h3>
+        <p>Merkingar þínar hjálpa okkur að þróa betri gervigreindarlíkön og mæla frammistöðu þeirra.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mb-16">
+    <h2 class="text-3xl font-bold mb-8">Taktu þátt í dag!</h2>
+    <p class="text-xl mb-8">Með því að taka þátt leggur þú þitt af mörkum til að varðveita og efla íslenska tungu í stafrænum heimi. Hver merking skiptir máli og hjálpar okkur að ná markmiðum okkar.</p>
+    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">Skráðu þig núna</a>
+  </div>
+
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h2 class="card-title text-2xl mb-4">Algengar spurningar</h2>
+      <div class="space-y-4">
+        <div class="collapse collapse-plus bg-base-200">
+          <input type="radio" name="faq-accordion" />
+          <div class="collapse-title text-xl font-medium">
+            Hversu langan tíma tekur þetta?
+          </div>
+          <div class="collapse-content">
+            <p>Þú ræður hversu miklum tíma þú eyðir í verkefnið. Hver merking tekur aðeins nokkrar sekúndur og þú getur tekið þátt hvenær sem hentar þér.</p>
+          </div>
+        </div>
+        <div class="collapse collapse-plus bg-base-200">
+          <input type="radio" name="faq-accordion" />
+          <div class="collapse-title text-xl font-medium">
+            Hvaða verkefni eru í boði?
+          </div>
+          <div class="collapse-content">
+            <p>Hægt er að merkja ummælin í eftirfarandi verkefnum: Lyndisgreining, eitraðar athugasemdir, kurteisi, hatursorðræða, félagslegt samþykki í mismunandi samhengi, tilfinningagreining, kaldhæðni, uppbyggileg orðræða, hvatning, samúð, nettröll, hrútskýringar og alhæfingar um hópa.</p>
+          </div>
+        </div>
+        <div class="collapse collapse-plus bg-base-200">
+          <input type="radio" name="faq-accordion" />
+          <div class="collapse-title text-xl font-medium">
+            Hvernig eru gögnin mín notuð?
+          </div>
+          <div class="collapse-content">
+            <p>Merkingar þínar gegna mikilvægu hlutverki í margþættum tilgangi. Þær verða nýttar til vísindalegra rannsókna, auk þess að vera notaðar til að meta getu gervigreindar í þeim fjölbreyttu verkefnum sem boðið er upp á á vefsíðunni. Ennfremur munu þær nýtast við þjálfun gervigreindarlíkana með það að markmiði að bæta málskilning þeirra. Mikilvægt er að taka fram að persónuvernd þín er tryggð, þar sem hvorki netfang þitt né notendanafn verður tengt við merkingar þínar þegar gögnin verða gerð opinber. Þannig er tryggt að framlag þitt til verkefnisins verður bæði gagnlegt fyrir framþróun gervigreindar og vísindalegar rannsóknir, á sama tíma og nafnleynd þín er virt.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

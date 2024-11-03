@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}Mælaborð{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+    {% set task_names = {
+        'sentiment': 'Lyndisgreining',
+        'toxicity': 'Eitruð ummæli',
+        'politeness': 'Kurteisi',
+        'hate_speech_presence': 'Hatursorðræða',
+        'social_acceptability_strangers': 'Félagslegt samþykki (ókunnugir)',
+        'social_acceptability_acquaintances': 'Félagslegt samþykki (kunningjar)',
+        'social_acceptability_close_friend': 'Félagslegt samþykki (náinn vinur)',
+        'social_acceptability_educational_young': 'Félagslegt samþykki (1.-3. bekkur)',
+        'social_acceptability_educational_older': 'Félagslegt samþykki (8.-10. bekkur)',
+        'social_acceptability_parliament': 'Félagslegt samþykki (í þingræðu)',
+        'emotion_anger': 'Tilfinning: Reiði',
+        'emotion_joy': 'Tilfinning: Gleði',
+        'emotion_sadness': 'Tilfinning: Sorg',
+        'emotion_fear': 'Tilfinning: Ótti',
+        'emotion_disgust': 'Tilfinning: Viðbjóður',
+        'emotion_surprise': 'Tilfinning: Undrun',
+        'emotion_contempt': 'Tilfinning: Fyrirlitning',
+        'emotion_indignation': 'Tilfinning: Hneykslun',
+        'sarcasm': 'Kaldhæðni',
+        'constructiveness': 'Uppbyggileg orðræða',
+        'encouragement_presence': 'Hvatning',
+        'sympathy': 'Samúð',
+        'trolling_behavior': 'Nettröll',
+        'mansplaining': 'Hrútskýringar',
+        'group_generalization_presence': 'Alhæfingar um hópa'
+    } %}
+
+    {% for task, progress in user_progress.items() %}
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title text-lg">{{ task_names[task] }}</h2>
+                <p class="text-2xl font-bold mb-2">{{ progress.user_without_skip }} {{ 'merking' if progress.user_without_skip % 10 == 1 else 'merkingar' }}</p>
+                <div class="flex items-center space-x-2">
+                    {% if progress.user_without_skip >= 10 %}
+                        <span class="text-3xl" title="Bronsverðlaun: 10+ merkingar">🥉</span>
+                    {% endif %}
+                    {% if progress.user_without_skip >= 50 %}
+                        <span class="text-3xl" title="Silfurverðlaun: 50+ merkingar">🥈</span>
+                    {% endif %}
+                    {% if progress.user_without_skip >= 100 %}
+                        <span class="text-3xl" title="Gullverðlaun: 100+ merkingar">🏆</span>
+                    {% endif %}
+                    {% if progress.user_without_skip >= 250 %}
+                        <span class="text-3xl" title="Regnbogaverðlaun: 250+ merkingar">🌟</span>
+                    {% endif %}
+                    {% if progress.user_without_skip >= 500 %}
+                        <span class="text-3xl" title="Regnbogaverðlaun: 500+ merkingar">🌈</span>
+                    {% endif %}
+                    {% if progress.user_without_skip >= 1000 %}
+                        <span class="text-3xl" title="Regnbogaverðlaun: 1000+ merkingar">🦄</span>
+                    {% endif %}
+                </div>
+                {% if current_user.feedback_enabled and progress.user_without_skip > 0 %}
+                    <p class="text-sm mt-2">Sammála gervigreind í {{ progress.agreement_ratio|default('Á ekki við') }}% tilvika</p>
+                {% endif %}
+                <div class="card-actions justify-end mt-4">
+                    <a href="{{ url_for('annotate', task=task) }}" class="btn btn-primary btn-sm">Merkja</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">Heildarframvinda</h2>
+            <div class="h-64 overflow-y-auto pr-2">
+                {% for task, progress in user_progress.items() %}
+                    <div class="mt-2">
+                        <p class="text-sm font-bold">{{ task_names[task] }}</p>
+                        <progress class="progress progress-secondary w-full" value="{{ progress.total }}" max="5000"></progress>
+                        <div class="flex justify-between text-xs">
+                            <span>Heildarfjöldi merkinga: {{ progress.total }}/5000</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">Stigatafla</h2>
+            <div class="h-64 overflow-y-auto pr-2">
+                <table class="table w-full">
+                    <thead>
+                        <tr>
+                            <th>Sæti</th>
+                            <th>Notandi</th>
+                            <th>Heildarfjöldi merkinga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in leaderboard %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ user.display_name }}</td>
+                                <td>{{ user.total_annotations }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

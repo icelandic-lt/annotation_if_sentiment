@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Deila frammistöðu{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-3xl">
+    <h1 class="text-4xl font-bold mb-8 text-center">Deila frammistöðu</h1>
+
+    <div class="space-y-8">
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title text-2xl mb-4">Helstu upplýsingar</h2>
+                <p class="text-lg mb-2">Heildarfjöldi merkinga: <span class="font-bold">{{ total_annotations }}</span></p>
+                <p class="text-lg mb-6">Samræmi við gervigreindarlíkan: <span class="font-bold">{{ agreement_percentage }}%</span></p>
+            </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title text-2xl mb-4">Hvers vegna að deila?</h2>
+                <p class="mb-4">
+                    Með því að deila frammistöðu þinni hjálpar þú okkur að:
+                </p>
+                <ul class="list-disc list-inside mb-4">
+                    <li>Auka vitund um mikilvægi þess að varðveita og efla íslensku í stafrænum heimi</li>
+                    <li>Hvetja fleiri til þátttöku í verkefninu</li>
+                    <li>Styðja við þróun betri gervigreindarlausna fyrir íslensku</li>
+                </ul>
+                <p>
+                    Þátttaka þín skiptir máli og með því að deila frammistöðu þinni getur þú haft jákvæð áhrif á framtíð íslenskunnar í tækniheiminum.
+                </p>
+            </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title text-2xl mb-4">Veldu skilaboð til að afrita (og deila svo á samfélagsmiðlum):</h2>
+                <div class="space-y-2">
+                    {% for message in share_messages %}
+                        <div class="flex items-center justify-between p-2 rounded-lg transition-colors duration-200 hover:bg-base-200">
+                            <p class="flex-grow mr-4">{{ message }} https://www.ummælagreining.is</p>
+                            <button onclick="copyToClipboard(this)" class="btn btn-primary btn-sm" data-message="{{ message }} https://www.ummælagreining.is">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+                                </svg>
+                                Afrita
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyToClipboard(button) {
+    var message = button.getAttribute('data-message');
+    var textArea = document.createElement("textarea");
+    textArea.value = message;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("Copy");
+    textArea.remove();
+    
+    // Change button text temporarily
+    var originalText = button.innerHTML;
+    button.innerHTML = '<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Afritað!';
+    button.disabled = true;
+    
+    setTimeout(function() {
+        button.innerHTML = originalText;
+        button.disabled = false;
+    }, 2000);
+}
+</script>
+{% endblock %}

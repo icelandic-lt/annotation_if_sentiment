@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Um verkefnið{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Um verkefnið</h1>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title mb-4">Samstarfsverkefni í gervigreind</h2>
+            <p class="mb-4">
+                Þetta verkefni er samstarfsrannsókn Háskóla Íslands, Háskólans í Reykjavík og Miðeindar. Markmið rannsóknarinnar er að búa til gagnasafn sem nýtist til að meta hæfni gervigreindar á ýmsum sviðum íslensks máls og menningar.
+            </p>
+            <p class="mb-4">
+                Slík gögn geta reynst ómetanleg fyrir fyrirtæki og stofnanir sem vilja meta gæði og áreiðanleika gervigreindarlíkana áður en þau eru tekin í notkun. Sérstaklega er mikilvægt að tryggja að þessi líkön hafi góðan skilning á íslensku máli og samræmist viðhorfum og gildum íslensks samfélags.
+            </p>
+            <p class="mb-4">
+                Gögnin sem notuð eru í verkefninu koma af vefsíðunni blog.is og endurspegla þannig raunverulegar umræður og skoðanaskipti Íslendinga á netinu. Með því að fá fjölbreyttan hóp þátttakenda til að merkja þessi gögn getum við skapað mikilvægan samanburðarstaðal fyrir gervigreindarlíkön.
+            </p>
+            <p>
+                Þátttaka þín í þessu verkefni er mikilvægt framlag til þróunar gervigreindar sem skilur og virðir íslenska menningu og málnotkun. Við þökkum þér kærlega fyrir aðstoðina við þessa mikilvægu rannsókn.
+            </p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title mb-4">Samstarfsaðilar</h2>
+            <div class="flex flex-wrap justify-center items-center gap-8">
+                <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex justify-center">
+                    <img src="{{ url_for('static', filename='images/hi_logo.png') }}" alt="Háskóli Íslands" class="max-h-24 object-contain">
+                </div>
+                <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex justify-center">
+                    <img src="{{ url_for('static', filename='images/hr_logo.jpg') }}" alt="Háskólinn í Reykjavík" class="max-h-24 object-contain">
+                </div>
+                <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex justify-center">
+                    <img src="{{ url_for('static', filename='images/mideind_logo.png') }}" alt="Miðeind" class="max-h-24 object-contain">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="text-2xl font-bold mb-4">Algengar spurningar</h2>
+
+    <div class="space-y-4">
+        <div class="collapse collapse-plus bg-base-100">
+            <input type="radio" name="faq-accordion" checked="checked" />
+            <div class="collapse-title text-xl font-medium">
+                Hvers vegna er þetta verkefni mikilvægt?
+            </div>
+            <div class="collapse-content">
+                <p>Þetta verkefni er mikilvægt því það hjálpar okkur að búa til gagnasafn sem endurspeglar íslenska menningu og málnotkun. Þetta gagnasafn mun nýtast til að þróa og meta gervigreindarlíkön sem skilja og virða íslenskt samhengi betur.</p>
+            </div>
+        </div>
+
+        <div class="collapse collapse-plus bg-base-100">
+            <input type="radio" name="faq-accordion" />
+            <div class="collapse-title text-xl font-medium">
+                Hvernig eru gögnin notuð?
+            </div>
+            <div class="collapse-content">
+                <p>Gögnin sem þú hjálpar til við að merkja verða notuð til að þjálfa og meta gervigreindarlíkön. Þetta mun hjálpa við að bæta skilning þessara líkana á íslensku máli og menningu, sem getur nýst í ýmsum verkefnum tengdum íslenskri málvinnslu og greiningu á samfélagsumræðu.</p>
+            </div>
+        </div>
+
+        <div class="collapse collapse-plus bg-base-100">
+            <input type="radio" name="faq-accordion" />
+            <div class="collapse-title text-xl font-medium">
+                Er þátttaka mín nafnlaus?
+            </div>
+            <div class="collapse-content">
+                <p>Já, þátttaka þín er nafnlaus. Við söfnum ekki persónugreinanlegum upplýsingum um þátttakendur og allar merkingar eru geymdar án tengsla við einstaka notendur.</p>
+            </div>
+        </div>
+
+        <div class="collapse collapse-plus bg-base-100">
+            <input type="radio" name="faq-accordion" />
+            <div class="collapse-title text-xl font-medium">
+                Hversu lengi tekur það að taka þátt?
+            </div>
+            <div class="collapse-content">
+                <p>Þú getur tekið þátt eins mikið eða lítið og þú vilt. Hver merking tekur venjulega nokkrar sekúndur, en þú getur merkt eins mörg ummæli og þú vilt. Við hvetjum þátttakendur til að taka sér góðan tíma og íhuga hverja merkingu vandlega.</p>
+            </div>
+        </div>
+
+        <div class="collapse collapse-plus bg-base-100">
+            <input type="radio" name="faq-accordion" />
+            <div class="collapse-title text-xl font-medium">
+                Hvernig get ég fengið frekari upplýsingar um verkefnið?
+            </div>
+            <div class="collapse-content">
+                <p>Ef þú hefur frekari spurningar um verkefnið, ekki hika við að hafa samband við okkur. Þú getur sent tölvupóst á netfangið sem gefið er upp í skilmálum síðunnar eða notað „Tilkynna vandamál“ valmöguleikann í valmyndinni til að koma spurningum á framfæri.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

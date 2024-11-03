@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="is" data-theme="emerald">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ummælagreining{% endblock %}</title>
+    <link href="{{ url_for('static', filename='dist/main.css') }}" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-base-200 text-base-content">
+    <div class="container mx-auto px-4">
+        <nav class="navbar bg-base-100">
+            <div class="navbar-start">
+                <div class="dropdown xl:hidden">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                        </svg>
+                    </div>
+                    <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                        {% if current_user.is_authenticated %}
+                            <li><a href="{{ url_for('index') }}">Heim</a></li>
+                            <li><a href="{{ url_for('guidelines') }}">Leiðbeiningar</a></li>
+                            <li><a href="{{ url_for('profile') }}">Notandi</a></li>
+                            <li><a href="{{ url_for('share_progress') }}">Deila frammistöðu</a></li>
+                            <li><a href="{{ url_for('logout') }}">Útskráning</a></li>
+                        {% else %}
+                            <li><a href="{{ url_for('login') }}">Innskráning</a></li>
+                            <li><a href="{{ url_for('register') }}">Nýskráning</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <a href="{{ url_for('index') }}" class="btn btn-ghost normal-case text-xl hidden sm:inline-flex">Ummælagreining</a>
+            </div>
+            <div class="navbar-end">
+                <ul class="menu menu-horizontal px-1 hidden xl:flex">
+                    {% if current_user.is_authenticated %}
+                        <li><a href="{{ url_for('guidelines') }}">Leiðbeiningar</a></li>
+                        <li><a href="{{ url_for('profile') }}">Notandi</a></li>
+                        <li><a href="{{ url_for('share_progress') }}">Deila frammistöðu</a></li>
+                        <li><a href="{{ url_for('logout') }}">Útskráning</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('login') }}">Innskráning</a></li>
+                        <li><a href="{{ url_for('register') }}">Nýskráning</a></li>
+                    {% endif %}
+                </ul>
+                {% if current_user.is_authenticated %}
+                <label class="label cursor-pointer flex items-center justify-start gap-2 ml-2">
+                    <span class="label-text">Endurgjöf</span>
+                    <input type="checkbox" class="toggle toggle-primary" id="feedbackSwitch" {% if current_user.feedback_enabled %}checked{% endif %} />
+                </label>
+                {% endif %}
+            </div>
+        </nav>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} mt-4">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <main class="py-4">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+            <div>
+                <p>Rannsóknarverkefni Háskóla Íslands, Háskólans í Reykjavík og Miðeindar</p>
+                <nav class="grid grid-flow-col gap-4">
+                    <a href="{{ url_for('about') }}" class="link link-hover">Um verkefnið</a>
+                    <a href="{{ url_for('terms') }}" class="link link-hover">Skilmálar</a>
+                    <a href="{{ url_for('report_issue') }}" class="link link-hover">Tilkynna vandamál</a>
+                </nav>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const taskDropdown = document.getElementById('taskDropdown');
+            if (taskDropdown) {
+                taskDropdown.addEventListener('click', function(e) {
+                    if (e.target.tagName === 'A') {
+                        taskDropdown.removeAttribute('open');
+                    }
+                });
+            }
+        });
+
+        {% if current_user.is_authenticated %}
+            const feedbackSwitch = document.getElementById('feedbackSwitch');
+            if (feedbackSwitch) {
+                feedbackSwitch.addEventListener('change', function() {
+                    fetch('{{ url_for('toggle_feedback') }}', {
+                        method: 'POST',
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Endurgjöf skipt:', data.feedback_enabled);
+                    });
+                });
+            }
+        {% endif %}
+    </script>
+</body>
+</html>

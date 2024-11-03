@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Tilkynna vandamál{% endblock %}
+
+{% block content %}
+<div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+        <h2 class="card-title">Tilkynna vandamál</h2>
+        <form action="{{ url_for('report_issue') }}" method="POST">
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Tegund vandamáls</span>
+                </label>
+                <select name="issue_type" class="select select-bordered" required>
+                    <option value="" disabled selected>Veldu tegund vandamáls</option>
+                    <option value="bug">Villa</option>
+                    <option value="feature_request">Beiðni um nýja virkni</option>
+                    <option value="annotation_problem">Vandamál við merkingu</option>
+                    <option value="other">Annað</option>
+                </select>
+            </div>
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Lýsing</span>
+                </label>
+                <textarea name="description" class="textarea textarea-bordered h-24" placeholder="Vinsamlegast lýstu vandamálinu í smáatriðum" required></textarea>
+            </div>
+            <div class="form-control mt-6">
+                <button type="submit" class="btn btn-primary">Senda tilkynningu</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

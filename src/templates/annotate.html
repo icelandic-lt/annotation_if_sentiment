@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+
+{% block title %}{{ task_names[task] }}{% endblock %}
+
+{% block content %}
+<style>
+    .blog-content p {
+        margin-bottom: 1.5em;  /* Adds space after each paragraph */
+    }
+    .blog-content p:last-child {
+        margin-bottom: 0;  /* Removes extra space after the last paragraph */
+    }
+</style>
+<div class="container mx-auto px-2 py-8">
+    <h1 class="text-3xl font-bold mb-6">{{ task_names[task] }}</h1>
+    {% if next_prize_count < 0 %}
+        <p class="text-lg mb-4">Fjöldi merkinga frá þér er {{ user_annotations_count }}.</p>
+    {% else %}
+        <p class="text-lg mb-4">Fjöldi merkinga frá þér er {{ user_annotations_count }} og þú þarft að merkja {{ next_prize_count }} ummæli í viðbót til að fá næstu verðlaun.</p>
+    {% endif %}
+
+    <!-- Blog Post -->
+    <div class="mb-6">
+        <button class="btn btn-primary w-full mb-2" onclick="toggleBlogPost()">Sýna/fela bloggfærslu</button>
+        <div id="blogPost" class="card bg-base-200 shadow-xl hidden">
+            <div class="card-body h-96 overflow-y-auto">
+                <h2 class="card-title"><a href="{{ blog_post.full_link }}" target="_blank">{{ blog_post.title }}</a></h2>
+                <div class="mt-2 blog-content">{{ blog_post.blog_content | safe }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Previous Comments -->
+    <div class="mb-6">
+        <button class="btn btn-secondary w-full mb-2" onclick="togglePreviousComments()">Sýna/fela fyrri ummæli</button>
+        <div id="previousComments" class="card bg-base-200 shadow-xl hidden">
+            <div id="commentsContainer" class="card-body h-96 overflow-y-auto flex flex-col-reverse">
+                {% for prev_comment in previous_comments %}
+                    <div class="p-2 bg-base-100 rounded-box mb-2 {% if prev_comment.author_name == comment.author_name %}border-l-4 border-primary{% endif %}">
+                        <p class="mb-1">{{ prev_comment.comment_text }}</p>
+                        <p class="text-sm text-gray-600">
+                            Höfundur: <span style="color: {% if prev_comment.author_gender == 'female' %}#FF69B4{% elif prev_comment.author_gender == 'male' %}#4169E1{% else %}#808080{% endif %};">{{ get_initials(prev_comment.author_name) }}</span>
+                            {% if prev_comment.author_gender == 'female' %}♀{% elif prev_comment.author_gender == 'male' %}♂{% else %}⚧{% endif %}
+                            | {{ prev_comment.comment_datetime.strftime('%Y-%m-%d %H:%M:%S') }}
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Current Comment -->
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title mb-4">Ummæli sem á að merkja:</h2>
+            <p class="text-lg mb-2">{{ comment.comment_text }}</p>
+            <p class="text-sm text-gray-600">
+                Höfundur: <span style="color: {% if comment.author_gender == 'female' %}#FF69B4{% elif comment.author_gender == 'male' %}#4169E1{% else %}#808080{% endif %};">{{ get_initials(comment.author_name) }}</span>
+                {% if comment.author_gender == 'female' %}♀{% elif comment.author_gender == 'male' %}♂{% else %}⚧{% endif %}
+                | {{ comment.comment_datetime.strftime('%Y-%m-%d %H:%M:%S') }}
+            </p>
+        </div>
+    </div>
+
+    <!-- Annotation Form -->
+    <div id="annotationForm" class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <input type="hidden" id="commentUuid" value="{{ comment.uuid }}">
+            <input type="hidden" id="task" value="{{ task }}">
+            
+            <h3 class="text-lg font-semibold mb-4 flex items-center">
+                {{ task_questions[task] }}
+                <button onclick="showGuidelines('{{ task }}')" class="ml-2 btn btn-circle btn-xs">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </button>
+            </h3>
+            
+            <div class="flex flex-col space-y-4">
+                {% if task == 'sentiment' %}
+                    <button onclick="submitAnnotation('positive')" class="btn btn-success">Jákvætt</button>
+                    <button onclick="submitAnnotation('negative')" class="btn btn-error">Neikvætt</button>
+                    <button onclick="submitAnnotation('neutral')" class="btn btn-info">Hlutlaust</button>
+                    <button onclick="submitAnnotation('skip')" class="btn btn-accent">Sleppa</button>
+                {% else %}
+                    <button onclick="submitAnnotation('1')" class="btn btn-primary">Já</button>
+                    <button onclick="submitAnnotation('0')" class="btn btn-secondary">Nei</button>
+                    <button onclick="submitAnnotation('skip')" class="btn btn-accent">Sleppa</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Section -->
+    <div id="feedbackSection" class="card bg-base-100 shadow-xl hidden mt-6">
+        <div class="card-body">
+            <h2 class="card-title mb-4">Endurgjöf</h2>
+            <p id="feedbackMessage" class="text-lg mb-4"></p>
+            <p class="text-lg mb-4">Athugaðu að markmiðið er ekki að vera sammála gervigreindarlíkaninu, heldur að merkja textann rétt. Endurgjöfin er bara til þess ætluð að bæta skemmtanagildi verkefnisins.</p>
+            <button id="nextAnnotation" class="btn btn-primary">Næstu ummæli</button>
+        </div>
+    </div>
+</div>
+
+<!-- Guidelines Modal -->
+<div id="guidelinesModal" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg" id="modalTitle"></h3>
+        <p class="py-4" id="modalContent"></p>
+        <div class="modal-action">
+            <button onclick="closeModal()" class="btn">Loka glugga</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let startTime = new Date();
+    let prevCommentsShown = false;
+    let blogPostShown = false;
+    let prevCommentsViewingTime = 0;
+    let blogPostViewingTime = 0;
+    let prevCommentsStartTime, blogPostStartTime;
+
+    function checkGuidelinesStatus() {
+        fetch('{{ url_for('check_guidelines_status') }}')
+            .then(response => response.json())
+            .then(data => {
+                if (!data.has_read_guidelines) {
+                    if (confirm("Hefur þú lesið leiðbeiningarnar? Smelltu á OK ef þú hefur gert það, annars Cancel til að skoða þær núna.")) {
+                        fetch('{{ url_for('mark_guidelines_read') }}', { method: 'POST' })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    console.log("Leiðbeiningar merktar sem lesnar");
+                                }
+                            });
+                    } else {
+                        window.location.href = '{{ url_for('guidelines') }}';
+                    }
+                }
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', checkGuidelinesStatus);
+
+    function togglePreviousComments() {
+        const prevComments = document.getElementById('previousComments');
+        prevComments.classList.toggle('hidden');
+        prevCommentsShown = !prevCommentsShown;
+        if (prevCommentsShown) {
+            const commentsContainer = document.getElementById('commentsContainer');
+            commentsContainer.scrollTop = commentsContainer.scrollHeight;
+            prevCommentsStartTime = new Date();
+        } else {
+            prevCommentsViewingTime += (new Date() - prevCommentsStartTime) / 1000;
+        }
+    }
+
+    function toggleBlogPost() {
+        const blogPost = document.getElementById('blogPost');
+        blogPost.classList.toggle('hidden');
+        blogPostShown = !blogPostShown;
+        if (blogPostShown) {
+            blogPostStartTime = new Date();
+        } else {
+            blogPostViewingTime += (new Date() - blogPostStartTime) / 1000;
+        }
+    }
+
+    function submitAnnotation(value) {
+        const endTime = new Date();
+        const timeTaken = (endTime - startTime) / 1000; // time in seconds
+        
+        // Calculate final viewing times
+        if (prevCommentsShown) {
+            prevCommentsViewingTime += (endTime - prevCommentsStartTime) / 1000;
+        }
+        if (blogPostShown) {
+            blogPostViewingTime += (endTime - blogPostStartTime) / 1000;
+        }
+
+        const commentUuid = document.getElementById('commentUuid').value;
+        const task = document.getElementById('task').value;
+
+        fetch('{{ url_for('submit_annotation') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                comment_uuid: commentUuid,
+                task: task,
+                annotation: value,
+                time_taken: timeTaken,
+                prior_comments_viewing_time: prevCommentsViewingTime,
+                blog_post_viewing_time: blogPostViewingTime
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.feedback_enabled) {
+                showFeedback(data.feedback, data.model_prediction);
+            } else {
+                window.location.reload();
+            }
+        });
+    }
+
+    function showFeedback(feedback, modelPrediction) {
+        document.getElementById('annotationForm').classList.add('hidden');
+        document.getElementById('feedbackSection').classList.remove('hidden');
+        document.getElementById('feedbackMessage').textContent = feedback;
+        
+        if (modelPrediction) {
+            document.getElementById('modelPrediction').classList.remove('hidden');
+            document.getElementById('modelPredictionValue').textContent = modelPrediction;
+        } else {
+            document.getElementById('modelPrediction').classList.add('hidden');
+        }
+    }
+
+    function showGuidelines(task) {
+        const modal = document.getElementById('guidelinesModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalContent = document.getElementById('modalContent');
+
+        modalTitle.textContent = '{{ task_names[task] }}';
+        modalContent.textContent = '{{ task_guidelines[task] }}';
+
+        modal.classList.add('modal-open');
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('guidelinesModal');
+        modal.classList.remove('modal-open');
+    }
+
+    document.getElementById('nextAnnotation').addEventListener('click', function() {
+        window.location.reload();
+    });
+</script>
+{% endblock %}

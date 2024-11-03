@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block title %}Leiðbeiningar{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Leiðbeiningar</h1>
+
+    <div class="alert alert-warning mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+        <span>Viðvörun: Sum ummæli gætu innihaldið dónalegt, óviðeigandi eða gróft orðbragð.</span>
+    </div>
+
+    <p class="mb-6">
+        Þegar þú hefur vinnu við tiltekið verkefni á síðunni færðu upp ummæli af blog.is og átt að meta þau miðað við tilteknar forsendur sem eru bornar upp sem já eða nei spurning í öllum verkefnum nema lyndisgreiningu. 
+    </p>
+
+    <p class="mb-6">
+        Til dæmis gætir þú verið spurð/ur/t hvort tiltekin ummæli séu eitruð eða ekki. Vinsamlegast lestu leiðbeiningarnar fyrir hvert verkefni (hér fyrir neðan) vandlega áður en þú byrjar.
+    </p>
+
+    <p class="mb-6">
+       Athugaðu að hér er það þitt gildismat sem ræður för. <b>Það eru engin rétt eða röng svör heldur er markmiðið að þú svarir út frá eigin tilfinningu</b>. Við sýnum einungis upphafsstafi höfunda og kyn þeirra. Nöfn höfunda ummæla ættu ekki að skipta máli í verkefninu heldur er það innihald ummælanna sem skiptir meginmáli.
+    </p>
+
+    <p class="mb-6">
+        Ef kveikt er á endurgjöfinni færðu upplýsingar um það eftir hverja merkingu hvort þú hafir merkt gögnin eins og GPT-4o-mini líkanið gerir. Með öðrum orðum sérðu hvort þú hafir verið sammála gildismati gervigreindarinnar í merkingum þínum. Það er hins vegar ekki markmiðið að þú sért alltaf sammála gervigreindinni. Þvert á móti viljum við gjarnan sjá hvenær gildismat þátttakenda víkur frá því sem gervigreindin segir. Þú skalt því alltaf meta ummæli út frá þinni eigin tilfinningu en ekki eltast við að gera eins og gervigreindin.
+     </p>
+
+    <p class="mb-6">
+        Í sérhverju verkefni getur þú skoðað ummælin sem komu á undan þeim sem eru til skoðunar og/eða bloggfærsluna sjálfa. Með því er hægt að fá betra samhengi fyrir ummælin sem á að meta hverju sinni. Athugaðu að sumar myndir eru því miður ekki lengur virkar og því er ekki alltaf hægt að birta myndir úr bloggfærslum. 
+    </p>
+
+    <p class="mb-6">
+        Athugaðu að þú getur valið að sleppa því að merkja í gefnu verkefni. Þennan möguleika ætti helst einungis að nota ef ummælin innihalda litlar sem engar upplýsingar (eins og t.d. hlekk eða þess háttar) eða ef textinn er á ensku eða öðru tungumáli en íslensku.
+    </p>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Lyndisgreining</h2>
+            <p>Taktu afstöðu til þess hvort ummælin séu almennt jákvæð, neikvæð eða hlutlaus. Þetta er huglægt mat á heildarblæ ummælanna, óháð efni þeirra.</p>
+            <ul class="list-disc list-inside mt-2">
+                <li>Jákvæð: Ummælin eru almennt jákvæð, uppbyggileg eða sýna ánægju.</li>
+                <li>Neikvæð: Ummælin eru almennt neikvæð, gagnrýnin eða sýna óánægju.</li>
+                <li>Hlutlaus: Kommentin eru hvorki augljóslega jákvæð né neikvæð, eða innihalda bæði jákvæð og neikvæð atriði í jöfnum hlutföllum.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Eitruð ummæli</h2>
+            <p>Ummæli teljast eitruð ef þau innihalda til dæmis dónaskap, vanvirðingu við viðmælandann, óæskilegt orðalag (svo sem blótsyrði eða fordómafull hugtök) eða annað slíkt og er líklegt til að láta viðmælendur eða lesendur yfirgefa umræðuna.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Kurteisi</h2>
+            <p>Taktu afstöðu til þess hvort ummælin séu kurteis.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Hatursorðræða</h2>
+            <p>Ummæli flokkast sem hatursorðræða ef þau innihalda fjandskap, hótanir eða ærumeiðingar gagnvart hópi eða einstaklingi á grundvelli eiginleika eins og kynþætti, þjóðerni, trú, uppruna, kynhneigð, fötlun eða kyni/kynvitund. Góð þumalputtaregla er að hatursorðræða beinist að eiginleikum sem einstaklingur hefur enga stjórn á en ef ummælin beinast t.d. að stjórnmálaskoðunum viðmælandans er betra að flokka þau sem eitruð ummæli. Þetta er þó matsatriði hverju sinni og hver og einn þátttakandi verður að taka afstöðu til þess hvað er flokkað sem hatursorðræða.
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Félagslegt samþykki (ókunnugir)</h2>
+            <p>Taktu afstöðu til þess hvort ummælin væru viðeigandi ef þau væru sögð við ókunnugan á almannafæri. Íhugaðu t.d. hvort þér þætti í lagi að manneskja sem þú ert að hitta í fyrsta skipti segði þetta við þig í heita pottinum í sundi. Athugið að hér er einungis átt við hvort að ummælin séu viðeigandi eða ekki í þessum aðstæðum. Reyndu að forðast að dæma ummælin út frá eigin skoðunum, t.a.m. varðandi stjórnmál.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Félagslegt samþykki (kunningjar)</h2>
+            <p>Taktu afstöðu til þess hvort ummælin væru viðeigandi ef þau væru sögð við kunningja í óformlegum aðstæðum. Íhugaðu t.d. hvort þér þætti í lagi að manneskja sem þú þekkir lítillega segði þetta við þig í veislu hjá sameiginlegum vini ykkar. Athugið að hér er einungis átt við hvort að ummælin séu viðeigandi eða ekki í þessum aðstæðum. Reyndu að forðast að dæma ummælin út frá eigin skoðunum, t.a.m. varðandi stjórnmál.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Félagslegt samþykki (náinn vinur)</h2>
+            <p>Taktu afstöðu til þess hvort ummælin væru viðeigandi ef þau væru sögð við náinn vin í einrúmi. Íhugaðu t.d. hvort þér þætti í lagi að manneskja sem þú þekkir vel segði þetta við þig í einrúmi. Athugið að hér er einungis átt við hvort að ummælin séu viðeigandi eða ekki í þessum aðstæðum. Reyndu að forðast að dæma ummælin út frá eigin skoðunum, t.a.m. varðandi stjórnmál.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Félagslegt samþykki (1.-3. bekkur)</h2>
+            <p>Taktu afstöðu til þess hvort ummælin væru viðeigandief kennari segði þetta við unga nemendur (t.d. við 6-8 ára nemendur í grunnskóla). Þú þarft ekki að taka tillit til þess hvort orðaforðinn er í takt við málskilning barna á þessum aldri heldur skaltu aðeins hugsa um verkefnið út frá umræðuefninu. Athugið að hér er einungis átt við hvort að ummælin séu viðeigandi eða ekki í þessum aðstæðum. Reyndu að forðast að dæma ummælin út frá eigin skoðunum, t.a.m. varðandi stjórnmál.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Félagslegt samþykki (8.-10. bekkur)</h2>
+            <p>Taktu afstöðu til þess hvort ummælin væru viðeigandi ef kennari segði þetta við eldri nemendur (t.d. við 13-15 ára nemendur í grunnskóla). Þú þarft ekki að taka tillit til þess hvort orðaforðinn er í takt við málskilning barna á þessum aldri heldur skaltu aðeins hugsa um verkefnið út frá umræðuefninu. Athugið að hér er einungis átt við hvort að ummælin séu viðeigandi eða ekki í þessum aðstæðum. Reyndu að forðast að dæma ummælin út frá eigin skoðunum, t.a.m. varðandi stjórnmál.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Félagslegt samþykki (í þingræðu)</h2>
+            <p>Taktu afstöðu til þess hvort ummælin væru ásættanleg ef þau væru sögð í formlegri umræðu á þingi. Íhugaðu t.d. hvort þér þætti í lagi að þingmaður segði þetta í pontu, annaðhvort í eigin ræðu eða sem andsvar við ræðu annarra. Athugið að hér er einungis átt við hvort að ummælin séu viðeigandi eða ekki í þessum aðstæðum. Reyndu að forðast að dæma ummælin út frá eigin skoðunum, t.a.m. varðandi stjórnmál.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Tilfinning: Reiði</h2>
+            <p>Taktu afstöðu til þess hvort ummælin tjái reiði.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Tilfinning: Gleði</h2>
+            <p>Taktu afstöðu til þess hvort ummælin tjái gleði eða hamingju.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Tilfinning: Sorg</h2>
+            <p>Taktu afstöðu til þess hvort ummælin tjái sorg.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Tilfinning: Ótti</h2>
+            <p>Taktu afstöðu til þess hvort ummælin tjái ótta.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Tilfinning: Viðbjóður</h2>
+            <p>Taktu afstöðu til þess hvort ummælin tjái viðbjóð (þ.e.a.s. að höfundur ummælanna finni til viðbjóðs gagnvart umræðuefninu).</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Tilfinning: Undrun</h2>
+            <p>Taktu afstöðu til þess hvort ummælin tjái undrun.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Tilfinning: Fyrirlitning</h2>
+            <p>Taktu afstöðu til þess hvort ummælin tjái fyrirlitningu.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Tilfinning: Hneykslun</h2>
+            <p>Taktu afstöðu til þess hvort ummælin tjái hneykslun.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Kaldhæðni</h2>
+            <p>Taktu afstöðu til þess hvort ummælin innihaldi eða tjái kaldhæðni (hér er bæði átt við íroníu (e. irony) og kaldhæðni (e. sarcasm)).</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Uppbyggileiki</h2>
+            <p>Taktu afstöðu til þess hvort ummælin séu uppbyggileg, veiti gagnlega endurgjöf eða leggi eitthvað jákvætt til umræðunnar.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Hvatning</h2>
+            <p>Taktu afstöðu til þess hvort ummælin innihaldi hvatningarorð eða stuðning.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Samúð</h2>
+            <p>Taktu afstöðu til þess hvort ummælin tjái samúð, meðaumkun eða skilning á aðstæðum einhvers annars.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Nettröll</h2>
+            <p>Taktu afstöðu til þess hvort ummælin virðist vera viljandi ögrandi eða móðgandi, ætluð til að framkalla tilfinningaleg viðbrögð viðmælenda eða lesenda. Góð þumalputtaregla er að nettröll skrifa oftast ummæli undir gervinafni. Það er þó ekki algilt.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Hrútskýringar</h2>
+            <p>Taktu afstöðu til þess hvort ummælin séu hrútskýring. Hrútskýring er blanda af orðunum „hrútur“ og „útskýring“ og er íslensk þýðing á enska hugtakinu „mansplaining“. Það vísar í grófum dráttum til þess þegar karlmaður útskýrir hluti fyrir konu á yfirlætislegan og lítillækkandi máta, gjarnan hluti sem konan veit þó meira um en karlmaðurinn. Sem dæmi um hrútskýringar eru fullyrðingar sem innihalda: „Nei þú skilur ekki alveg“ eða „Það sem þú ert að reyna að segja er…“. Hrútskýring er stundum skilgreind á víðtækari hátt og getur þá átt við um ummæli sem kona og/eða karlmaður segir við aðra manneskju, en hér eigum við aðeins við ummæli sem karlmaður segir við konu.</p>
+        </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl sm:text-2xl">Alhæfingar um hópa</h2>
+            <p>Taktu afstöðu til þess hvort ummælin geri víðtækar alhæfingar um hóp fólks byggt á einkennum eins og kynþætti, kyni, þjóðerni, pólitískum skoðunum og fleira. Athugið að hér er ekki endilega átt við neikvæðar fullyrðingar (samanber hatursorðræðu) heldur hvers kyns alhæfingar. Sem dæmi: „Konur eru betri í að sjá um uppeldi en karlar“.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

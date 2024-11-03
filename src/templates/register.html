@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Nýskráning{% endblock %}
+
+{% block content %}
+<div class="card bg-base-100 shadow-xl max-w-2xl mx-auto">
+    <div class="card-body">
+        <h2 class="card-title text-2xl mb-4">Nýskráning</h2>
+        <form method="POST">
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Netfang</span>
+                </label>
+                <input type="email" name="email" placeholder="netfang@dæmi.is" class="input input-bordered" required>
+            </div>
+            <div class="form-control mt-4">
+                <label class="label">
+                    <span class="label-text">Nafn sem birtist í stigatöflu</span>
+                </label>
+                <input type="text" name="display_name" placeholder="Þitt birtingarnafn" class="input input-bordered" required>
+            </div>
+            <div class="form-control mt-4">
+                <label class="label">
+                    <span class="label-text">Lykilorð</span>
+                </label>
+                <input type="password" name="password" placeholder="••••••••" class="input input-bordered" required>
+            </div>
+            <div class="form-control mt-4">
+                <label class="label">
+                    <span class="label-text">Staðfesta lykilorð</span>
+                </label>
+                <input type="password" name="confirm_password" placeholder="••••••••" class="input input-bordered" required>
+            </div>
+            <div class="form-control mt-4">
+                <label class="label">
+                    <span class="label-text">Aldur</span>
+                </label>
+                <input type="number" name="age" id="age" placeholder="Þinn aldur" class="input input-bordered" required min="18">
+            </div>
+            <div class="form-control mt-4">
+                <label class="label">
+                    <span class="label-text">Kyn</span>
+                </label>
+                <select name="gender" class="select select-bordered w-full" required>
+                    <option value="" disabled selected>Veldu kyn þitt</option>
+                    <option value="male">Karl</option>
+                    <option value="female">Kona</option>
+                    <option value="other">Kynsegin/Annað</option>
+                    <option value="prefer_not_to_say">Kýs að svara ekki</option>
+                </select>
+            </div>
+            <div class="form-control mt-4">
+                <label class="label">
+                    <span class="label-text">Menntunarstig</span>
+                </label>
+                <select name="education_level" class="select select-bordered w-full" required>
+                    <option value="" disabled selected>Veldu hæsta lokna menntunarstig þitt</option>
+                    <option value="grunnskoli">Grunnskólapróf/Gagnfræðipróf</option>
+                    <option value="framhaldsskoli">Stúdentspróf</option>
+                    <option value="idnmenntun">Iðnmenntun</option>
+                    <option value="bachelor">Bakkalársgráða</option>
+                    <option value="master">Meistaragráða</option>
+                    <option value="phd">Doktorsgráða</option>
+                    <option value="annad">Annað</option>
+                </select>
+            </div>
+            <div class="form-control mt-4">
+                <label class="label">
+                    <span class="label-text">Móðurmál</span>
+                </label>
+                <select name="first_language" class="select select-bordered w-full" required>
+                    <option value="" disabled selected>Veldu móðurmál þitt</option>
+                    <option value="islenska">Íslenska</option>
+                    <option value="annad">Annað</option>
+                </select>
+            </div>
+            <div class="form-control mt-4">
+                <label class="label cursor-pointer">
+                    <span class="label-text">Hakaðu við þennan reit ef þú vilt að við sendum þér tölvupóst vegna greina eða niðurstaða sem tengjast rannsókninni.</span>
+                    <input type="checkbox" name="email_consent" class="checkbox">
+                </label>
+            </div>
+            <div class="form-control mt-6">
+                <label class="label cursor-pointer">
+                    <span class="label-text">Ég samþykki skilmála síðunnar</span> 
+                    <input type="checkbox" name="terms_accepted" class="checkbox" required>
+                </label>
+            </div>
+            <div class="form-control mt-2">
+                <textarea class="textarea textarea-bordered h-24 text-sm" readonly>{{ terms_and_conditions }}</textarea>
+            </div>
+            <div class="form-control mt-6">
+                <button type="submit" class="btn btn-primary">Nýskráning</button>
+            </div>
+        </form>
+        <div class="text-center mt-4">
+            Ertu nú þegar með aðgang? <a href="{{ url_for('login') }}" class="link link-primary">Skráðu þig inn hér</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+        var age = document.getElementById('age').value;
+        if (parseInt(age) < 18) {
+            e.preventDefault();
+            alert('Þú verður að vera að minnsta kosti 18 ára til að skrá þig.');
+        }
+    });
+</script>
+{% endblock %}

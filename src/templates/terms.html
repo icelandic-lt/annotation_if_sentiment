@@ -1,0 +1,13 @@
+<!-- templates/terms.html -->
+{% extends "base.html" %}
+
+{% block title %}Skilmálar{% endblock %}
+
+{% block content %}
+<div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+        <h2 class="card-title">Skilmálar</h2>
+        <pre class="whitespace-pre-wrap">{{ terms_and_conditions }}</pre>
+    </div>
+</div>
+{% endblock %}

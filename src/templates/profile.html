@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Notandi{% endblock %}
+
+{% block content %}
+<div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+        <h2 class="card-title">Upplýsingar um mig</h2>
+        <form action="{{ url_for('update_profile') }}" method="POST">
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Tölvupóstur</span>
+                </label>
+                <input type="email" name="email" value="{{ current_user.email }}" class="input input-bordered" readonly>
+            </div>
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Aldur</span>
+                </label>
+                <input type="number" name="age" value="{{ current_user.age }}" class="input input-bordered" required>
+            </div>
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Kyn</span>
+                </label>
+                <select name="gender" class="select select-bordered" required>
+                    <option value="male" {% if current_user.gender == 'male' %}selected{% endif %}>Karl</option>
+                    <option value="female" {% if current_user.gender == 'female' %}selected{% endif %}>Kona</option>
+                    <option value="other" {% if current_user.gender == 'other' %}selected{% endif %}>Kynsegin/Annað</option>
+                </select>
+            </div>
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Hæsta menntunarstig</span>
+                </label>
+                <select name="education_level" class="select select-bordered" required>
+                    <option value="grunnskoli" {% if current_user.education_level == 'grunnskoli' %}selected{% endif %}>Grunnskólapróf/Gagnfræðipróf</option>
+                    <option value="framhaldsskoli" {% if current_user.education_level == 'framhaldsskoli' %}selected{% endif %}>Stúdentspróf</option>
+                    <option value="idnmenntun" {% if current_user.education_level == 'idnmenntun' %}selected{% endif %}>Iðnmenntun</option>
+                    <option value="bachelor" {% if current_user.education_level == 'bachelor' %}selected{% endif %}>Bakkalársgráða</option>
+                    <option value="master" {% if current_user.education_level == 'master' %}selected{% endif %}>Meistaragráða</option>
+                    <option value="phd" {% if current_user.education_level == 'phd' %}selected{% endif %}>Doktorsgráða</option>
+                    <option value="annad" {% if current_user.education_level == 'annad' %}selected{% endif %}>Annað</option>
+                </select>
+            </div>
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Móðurmál</span>
+                </label>
+                <select name="first_language" class="select select-bordered" required>
+                    <option value="islenska" {% if current_user.first_language == 'islenska' %}selected{% endif %}>Íslenska</option>
+                    <option value="annad" {% if current_user.first_language == 'annad' %}selected{% endif %}>Annað</option>
+                </select>
+            </div>
+            <div class="form-control">
+                <label class="label cursor-pointer">
+                    <span class="label-text">Hakaðu við þennan reit ef þú vilt að við sendum þér tölvupóst vegna greina eða niðurstaða sem tengjast rannsókninni.</span>
+                    <input type="checkbox" name="email_consent" class="checkbox" {% if current_user.email_consent %}checked{% endif %}>
+                </label>
+            </div>
+            <div class="form-control mt-6">
+                <button type="submit" class="btn btn-primary">Uppfæra notandaupplýsingar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
