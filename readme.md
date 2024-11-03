@@ -85,6 +85,8 @@ flask run
 
 The application will be available at `http://localhost:5000`
 
+Note that you will need to manually populate the database with comments and tasks before you can start annotating.
+
 ## Production Deployment
 
 The application is configured for deployment on Heroku:
@@ -100,7 +102,7 @@ git push heroku main
 ## Project Structure
 
 ```
-app/
+src/
 ├── static/          # Static files (CSS, images)
 ├── templates/       # HTML templates
 ├── app.py          # Main application file
